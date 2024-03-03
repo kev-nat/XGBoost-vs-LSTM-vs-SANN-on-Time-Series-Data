@@ -57,12 +57,12 @@ The first algorithm we will be using is Long short term memory, which is a type 
 Above is a single LSTM cell, where ft is the forget gate, it is the input gate, Ct is the control gate, Ot is the output gate, σ is a sigmoid function and tanh is the activation function. ht and ht-1 are the current output and the previous output, respectively. Ct and Ct-1 are the current state of the cell and the previous state of the cell respectively. Since each cell's input and outputs are of the current timeframe and the past timeframe this results in each cell having some sort of memory.  From the above diagram, we can surmise the equation for the input at each gate, the output, and the states of the cell as:
 </p>
 
-- ft =(w_f ⋅ [ht-1,xt] + bf)
-- it =(wi ⋅ [ht-1,xt] + bi)
-- ot =(wo ⋅ [ht-1,xt] + bo)
-- ct =tanh(wc ⋅ [ht-1,xt] + bc)
-- ct =ft*ct-1 + it*ct
-- ht=ot*tanh(ct)
+- ft = σ(wf ⋅ [ht-1,xt] + bf)
+- it = σ(wi ⋅ [ht-1,xt] + bi)
+- ot = σ(wo ⋅ [ht-1,xt] + bo)
+- ct = tanh(wc ⋅ [ht-1,xt] + bc)
+- ct = ft*ct-1 + it*ct
+- ht = ot*tanh(ct)
 
 Where w represents the weights at each gate and b represents the bias at each gate. 
 
@@ -99,7 +99,7 @@ The next step is to train the model. Before we could train our model we will spl
 ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/a01d864e-8473-40ec-a37f-35b77b83666a)
 
 <p align="justify"> 
-Where yhati are the values predicted by the algorithm, yi is the actual value and n is the total number of measurements. This RMSE equation will be used on the test set of data, as this will represent the real world performance because we are predicting values that are out of the training set.
+Where yhat are the values predicted by the algorithm, yi is the actual value and n is the total number of measurements. This RMSE equation will be used on the test set of data, as this will represent the real world performance because we are predicting values that are out of the training set.
 </p>
 
 ## Results and Analysis
@@ -126,47 +126,78 @@ With the USA wheat production and consumption data from 1950 to 2022 we use LSTM
 Based on the figure below we could see that out of the 3 algorithms that we use XGBoost produces the closest prediction to the real data compared to LSTM or SANN. This could be attributed to the fact that the USA wheat production data is fluctuating significantly.
 </p>
   
+<p align="justify">   
 Wheat production prediction using LSTM algorithm (RMSE = 81.5489)
+  
 ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/a013d9b1-f993-403e-b50d-6f3c417c8924)
+</p>
 
+<p align="justify">   
 Wheat production prediction using SANN algorithm (RMSE = 80.39)
-![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/5af6f99d-40f1-42d7-988a-7b7def001b8e)
 
+  ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/5af6f99d-40f1-42d7-988a-7b7def001b8e)
+</p>
+
+<p align="justify">   
 Wheat production prediction using XGBoost algorithm (RMSE = 13.63)
+  
 ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/7076ccbd-1963-431a-9886-abbfe9299ad2)
+</p>
 </details>
 
 <details>
 <summary> Food Use </summary>
 <p align="justify"> 
-Based on the figure below we could see that out of the 3 algorithms that we use SANN produces the closest prediction to the real data compared to LSTM or XGBoost. But based on the graph we could see that the SANN prediction graph is making a lot of fatal errors, compared to LSTM and XGBoost that have bigger RMSE but the individual error is small. And between LSTM and XGBoost, LSTM yields a lower RMSE with RMSE = 8.6221, this could be attributed due to the data having less fluctuation and more constant.
+Based on the figure below we could see that out of the 3 algorithms that we use LSTM produces the closest prediction to the real data compared to SANN or XGBoost. 
+</p>
+  
+<p align="justify"> 
+But based on the graph we could see that the SANN prediction graph is making a lot of fatal errors, compared to LSTM and XGBoost. And between LSTM and XGBoost, LSTM yields a lower RMSE with RMSE = 7.0488, this could be attributed due to the data having less fluctuation and more constant.
+</p>
+  
+<p align="justify"> 
+Food Use prediction using LSTM algorithm (RMSE = 7.0488)
+  
+![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/d3361166-f277-4788-be39-4c3e453180d1)
 </p>
 
-Food Use prediction using LSTM algorithm (RMSE = 7.0488)
-![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/d3361166-f277-4788-be39-4c3e453180d1)
-
+<p align="justify"> 
 Food use prediction using SANN algorithm (RMSE = 20.52)
-![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/11c70e1c-cb3a-4cd8-86b6-09eb475d9b63)
+  
+  ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/11c70e1c-cb3a-4cd8-86b6-09eb475d9b63)
+</p>
 
+<p align="justify"> 
 Food use prediction using XGBoost algorithm (RMSE =14.47)
+
 ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/677c96fc-8ce1-4a6c-84c4-d1f89b1fa1be)
 </details>
 
+</p>
 <details>
 <summary> Feed and Residual Use </summary>
 <p align="justify"> 
 Based on the figure below we could see that out of the 3 algorithms that we use XGBoost produces the closest prediction to the real data compared to LSTM or SANN. This could be attributed to the fact that the USA feed and residual use data is similar to USA wheat production data with a significant quantity of pronounced peak and valley in the data.
 </p>
-
+  
+<p align="justify"> 
 Feed and residual use prediction using LSTM algorithm (RMSE = 25.0403)
+  
 ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/936836e0-2ddc-40f2-9cf5-4605bd7f9f74)
+</p>
 
+<p align="justify"> 
 Feed and residual use prediction using SANN algorithm (RMSE = 74.245)
-![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/ef73ab91-6731-4ab6-861c-f0fdce875acc)
+  
+  ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/ef73ab91-6731-4ab6-861c-f0fdce875acc)
+</p>
 
+<p align="justify"> 
 Feed and residual use prediction using XGBoost algorithm (RMSE = 3.18)
+  
 ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/6b5dd085-aefc-42c0-925f-acf16baf15c2)
 </details>
+</p>
 
 <details>
 <summary> Root Mean Squared Error (RMSE) </summary>
@@ -186,16 +217,20 @@ The RMSE of three algorithms predicting USA feed and residual use for the years 
 ![image](https://github.com/kev-nat/XGBoost-vs-LSTM-vs-SANN-on-Time-Series-Data/assets/97384711/c1f75253-513d-4e1b-8f01-c7b8f7c2f410)
 </details>
 
-### Conclusion
+## Conclusion
 <p align="justify"> 
 From the wheat production analysis that we have carried out using 3 types of machine learning algorithms, namely, LSTM (Long Short Term Memory), SANN (Seasonal Artificial Neural Network), and XGBoost (Extreme Gradient Boosting).
+</p>
 
+<p align="justify"> 
 We can conclude that for cases with our data that have a lot of fluctuations, the XGBoost algorithm has higher accuracy compared to LSTM and SANN. This can happen because XGBoost works by iteratively building a new tree based on predecessor learners' residuals. As outliers have much larger residuals than non-outliers, the algorithm may disproportionately focus its attention on those points. Hence, the presence of outliers in the dependent regressor variable can make XGBoost sensitive to outliers.
+</p>
 
+<p align="justify"> 
 However, XGBoost has a weakness, namely that if it is faced with a dataset that tends to be constant as we can see in the food use case, we can see that the predictions tend to be flat when compared to the LSTM algorithm.
 </p>
 
-### References
+## References
 [1]J. Brownlee, “Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras,” Machine Learning Mastery, Apr. 26, 2019. https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/.
 
 [2]dmlc, “dmlc/xgboost,” GitHub, Oct. 25, 2019. https://github.com/dmlc/xgboost.
